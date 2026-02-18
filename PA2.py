@@ -1,6 +1,11 @@
+#EXTRAS Error handling
+#Extras Receipt
+#Extras punch card 
+
 milk = 0.0
 cold = 0
 drip = 0
+pcard = 0 
 
 
 def inventory_f():
@@ -22,11 +27,11 @@ def inventory_f():
 
 
 def transaction_calculator():
-    global cold, drip, milk
+    global cold, drip, milk,pcard 
     
-    print("1 for Special Cold Brew $6")
-    print("2 for Standard Drip $3")
-    print("3 exit back to transaction calculator")
+    print("1. for Special Cold Brew $6")
+    print("2. for Standard Drip $3")
+    print("3. exit back to transaction calculator")
     
     user = int(input("Please select an option: "))
     
@@ -50,13 +55,6 @@ def transaction_calculator():
     drinks = cold + drip
     milk_used = drinks * 0.10
     
-    if milk_used > milk:
-        print("shortage of milk!")
-        return
-    else:
-        milk -= milk_used
-
-   
 
     # 15% discount if 10 or more drinks
     if drinks >= 10:
@@ -86,19 +84,54 @@ def transaction_calculator():
         print("insufficient funds")
         print("please pay $", round(total - paid, 2))
     elif paid > total:
+        pcard = pcard + 1 
+
+        print("Here is your receipt!")
+        if pastry == 'Y':
+            print("Pastry fee  - $5")
+        print("Barista tax-$",round(btax, 2))
+        print("Your Total- $",round(total,2))
         print("your change = $", round(paid - total, 2))
+        if pcard >= 5: 
+            print("you have earned a free cold brew! Plesae ask your barista to redeem!")
+        else:
+            print("you are at  ",pcard,"punches. Once you get to 5 you will recieve a free Latte")
     elif paid == total:
+        pcard = pcard + 1 
+        if pastry == 'Y':
+            print("Pastry fee  - $5")
+        print("Barista tax-$",round(btax, 2))
+        print("Your Total- $",round(total,2))
+        print("your change = $", round(paid - total, 2))
         print("you paid the exact amount have a good day")
+        if pcard >= 5: 
+            print("you have earned a free cold brew! Plesae ask your barista to redeem!")
+            pcard = 0
+        else:
+            print("you are at  ",pcard,"punches. Once you get to 5 you will recieve a free Latte")
+            
     else:
         print("please input payment amount")
+         
 
     print()
 
 
 def menu():
-    print("1 Inventory Check")
-    print("2 Transaction Calculator")
-    print("3 Exit")
+    print("welcome.....")
+    print(r""" 
+          )  (
+         (   ) )
+         ) ( (
+    _______)_
+ .-'---------|  
+( C|/\/\/\/\/|
+ '-./\/\/\/\/|
+   '_________'
+    '-------'""")
+    print("1. Inventory Check")
+    print("2. Transaction Calculator")
+    print("3. Exit")
     
     return int(input("Please select an option: "))
 
